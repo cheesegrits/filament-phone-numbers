@@ -39,10 +39,9 @@ This is the contents of the published config file:
 return [
     'defaults' => [
         'region' => env('FILAMENT_PHONE_NUMBERS_ISO_COUNTRY', 'US'),
-        'database_format' => env('FILAMENT_PHONE_NUMBERS_DATABAASE_FORMAT', PhoneNumberFormat::E164),
+        'database_format' => env('FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT', PhoneNumberFormat::E164),
         'display_format' => env('FILAMENT_PHONE_NUMBERS_DISPLAY_FORMAT', PhoneNumberFormat::NATIONAL),
         'icon' => env('FILAMENT_PHONE_NUMBERS_ICON', 'heroicon-m-phone'),
-       
     ],
 ];
 ```
@@ -54,7 +53,7 @@ Rather than publishing the config, we recommend using the environment variables.
 
 FILAMENT_PHONE_NUMBERS_ISO_COUNTRY - the standard [two letter (alpha-2) ISO country code](https://www.iso.org/obp/ui/#search).
 
-FILAMENT_PHONE_NUMBERS_DATABAASE_FORMAT, FILAMENT_PHONE_NUMBERS_DATABAASE_FORMAT - one of the following integers:
+FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT, FILAMENT_PHONE_NUMBERS_DDISPLAY_FORMAT - one of the following integers:
 
 * 0 - E164
 * 1 - International

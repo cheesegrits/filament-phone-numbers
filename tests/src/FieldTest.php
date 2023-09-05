@@ -74,7 +74,7 @@ it('can save a US format phone number to e164 format', function () {
             'phone' => $formattedPhone,
         ])
         ->fillForm([
-            'phone' => '2345551212'
+            'phone' => '2345551212',
         ])
         ->call('save')
         ->assertHasNoFormErrors();

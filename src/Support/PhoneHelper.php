@@ -5,7 +5,6 @@ namespace Cheesegrits\FilamentPhoneNumbers\Support;
 use Brick\PhoneNumber\PhoneNumber;
 use Brick\PhoneNumber\PhoneNumberFormat;
 use Brick\PhoneNumber\PhoneNumberParseException;
-use Illuminate\Support\Str;
 
 class PhoneHelper
 {

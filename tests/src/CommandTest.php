@@ -35,9 +35,9 @@ it('does not update the table if the commit flag is not given', function () {
     $this->artisan(
         'filament-phone-numbers:normalize',
         [
-            '--model'      => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
-            '--field'      => 'phone',
-            '--target'      => 'normalized_phone',
+            '--model' => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
+            '--field' => 'phone',
+            '--target' => 'normalized_phone',
             '--format' => 'e164',
             '--region' => 'US',
         ]
@@ -53,18 +53,18 @@ it('does updates the table to target field if the commit flag is given', functio
     $this->artisan(
         'filament-phone-numbers:normalize',
         [
-            '--model'      => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
-            '--field'      => 'phone',
-            '--target'      => 'normalized_phone',
+            '--model' => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
+            '--field' => 'phone',
+            '--target' => 'normalized_phone',
             '--format' => 'e164',
             '--region' => 'US',
             '--commit' => true,
         ]
     );
 
-    Foreach (User::all() as $user) {
+    foreach (User::all() as $user) {
         expect(($user->normalized_phone))->toBe(PhoneHelper::formatPhoneNumber($user->phone, format: PhoneNumberFormat::E164));
-    };
+    }
 });
 
 it('does updates the table in-place if the commit flag is given', function () {
@@ -74,18 +74,18 @@ it('does updates the table in-place if the commit flag is given', function () {
     $this->artisan(
         'filament-phone-numbers:normalize',
         [
-            '--model'      => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
-            '--field'      => 'phone',
-            '--target'      => '',
+            '--model' => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
+            '--field' => 'phone',
+            '--target' => '',
             '--format' => 'e164',
             '--region' => 'US',
             '--commit' => true,
         ]
     );
 
-    Foreach (User::all() as $user) {
+    foreach (User::all() as $user) {
         expect(($user->phone))->toBe(PhoneHelper::formatPhoneNumber($phones[$user->id], format: PhoneNumberFormat::E164));
-    };
+    }
 });
 
 it('sets invalid numbers to null if the delete-invalid flag is set', function () {
@@ -95,9 +95,9 @@ it('sets invalid numbers to null if the delete-invalid flag is set', function ()
     $this->artisan(
         'filament-phone-numbers:normalize',
         [
-            '--model'      => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
-            '--field'      => 'phone',
-            '--target'      => 'normalized_phone',
+            '--model' => 'Cheesegrits/FilamentPhoneNumbers/Tests/Models/User',
+            '--field' => 'phone',
+            '--target' => 'normalized_phone',
             '--format' => 'e164',
             '--region' => 'US',
             '--commit' => true,

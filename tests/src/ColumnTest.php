@@ -70,7 +70,7 @@ it('can bypass E164 search query modification', function () {
         ->searchTable('(234) 555')
         ->assertCanNotSeeTableRecords([$searchUser])
         ->searchTable('234555')
-        ->assertCanSeeTableRecords([$searchUser]);;
+        ->assertCanSeeTableRecords([$searchUser]);
 });
 
 class TestTable extends BaseTable

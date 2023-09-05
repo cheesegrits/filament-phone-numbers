@@ -71,7 +71,7 @@ class PhoneNumber extends Forms\Components\TextInput
         return $this->evaluate($this->strict);
     }
 
-    public function mask(Closure | string | RawJs | null $mask = null): static
+    public function mask(Closure | string | RawJs $mask = null): static
     {
         if ($mask) {
             return parent::mask($mask);

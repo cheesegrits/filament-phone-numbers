@@ -15,15 +15,15 @@ class PhoneNumberColumn extends TextColumn
 {
     use CanBeSearchable;
 
-    protected int|Closure|null $displayFormat = null;
+    protected int | Closure | null $displayFormat = null;
 
-    protected bool|Closure $dial = false;
+    protected bool | Closure $dial = false;
 
-    protected string|Closure|null $region = null;
+    protected string | Closure | null $region = null;
 
-    protected bool|Closure $useDefaultSearch = false;
+    protected bool | Closure $useDefaultSearch = false;
 
-    public function displayFormat(int|PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
     {
         $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
 
@@ -80,7 +80,7 @@ class PhoneNumberColumn extends TextColumn
         return $this->evaluate($this->useDefaultSearch);
     }
 
-    public function searchable(bool|array|string $condition = true, Closure $query = null, bool $isIndividual = false, bool $isGlobal = true): static
+    public function searchable(bool | array | string $condition = true, Closure $query = null, bool $isIndividual = false, bool $isGlobal = true): static
     {
         if (! $this->getUseDefaultSearch() && ! $query) {
             parent::searchable(
@@ -88,8 +88,8 @@ class PhoneNumberColumn extends TextColumn
                 query: function (Builder $query, string $search) {
                     if (str_starts_with($search, '(')) {
                         $phoneNumberUtil = PhoneNumberUtil::getInstance();
-                        $country         = $phoneNumberUtil->getCountryCodeForRegion($this->getRegion());
-                        $numbers         = '+' . $country . preg_replace('/[^0-9]/', '', $search);
+                        $country = $phoneNumberUtil->getCountryCodeForRegion($this->getRegion());
+                        $numbers = '+' . $country . preg_replace('/[^0-9]/', '', $search);
                     } else {
                         $numbers = preg_replace('/[^0-9]/', '', $search);
                     }
@@ -106,7 +106,6 @@ class PhoneNumberColumn extends TextColumn
         } else {
             parent::searchable(condition: $condition, query: $query, isIndividual: $isIndividual, isGlobal: $isGlobal);
         }
-
 
         return $this;
     }

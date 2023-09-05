@@ -33,7 +33,7 @@ class Country extends Model
     public function getAlpineMaskAttribute(): string
     {
         return Str::of($this->mask[0])
-            ->replace('#', '9', )
+            ->replace('#', '9')
             ->replace(')', ') ')
             ->toString();
     }

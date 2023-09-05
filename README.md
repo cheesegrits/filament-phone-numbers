@@ -82,7 +82,7 @@ FilamentPhoneNumbers\Forms\Components\PhoneNumber::make('phone')
 This will use your globally configured region, database and display formats.
 
 It will attempt to set a mask based on your region, and will automatically validate the number
-according to the configured region in "permissive" mode, where it just checks that the number is
+according to the configured region in "permissive" mode, where it just checks that the number
 has the correct number of digits.
 
 The full set of options is as follows.
@@ -200,11 +200,11 @@ This will run the command in test mode, whereby no actual changes will be made.
 
 You will be prompted for:
 
-Model (e.g. `Location` or `Maps/Dealership`)
-Phone attribute to normalize (e.g. phone or phone_number)
-Attribute to normalize to (e.g. normalized_phone, leave blank to modify in-place)
-Phone Number Format (use E164 unless you have a very good reason not to)
-Two letter (alpha-2) ISO country code (e.g. US or GB)
+* Model (e.g. `Location` or `Maps/Dealership`)
+* Phone attribute to normalize (e.g. phone or phone_number)
+* Attribute to normalize to (e.g. normalized_phone, leave blank to modify in-place)
+* Phone Number Format (use E164 unless you have a very good reason not to)
+* Two letter (alpha-2) ISO country code (e.g. US or GB)
 
 The command will output feedback like this:
 

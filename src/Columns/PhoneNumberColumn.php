@@ -8,18 +8,22 @@ use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Closure;
 use Filament\Tables\Columns\Concerns\CanBeSearchable;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
+use libphonenumber\PhoneNumberUtil;
 
 class PhoneNumberColumn extends TextColumn
 {
     use CanBeSearchable;
 
-    protected int | Closure | null $displayFormat = null;
+    protected int|Closure|null $displayFormat = null;
 
-    protected bool | Closure $dial = false;
+    protected bool|Closure $dial = false;
 
-    protected string | Closure | null $region = null;
+    protected string|Closure|null $region = null;
 
-    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    protected bool|Closure $useDefaultSearch = false;
+
+    public function displayFormat(int|PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
     {
         $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
 
@@ -64,6 +68,49 @@ class PhoneNumberColumn extends TextColumn
         return $this->evaluate($this->dial);
     }
 
+    public function useDefaultSearch($defaultSearch = true): static
+    {
+        $this->useDefaultSearch = $defaultSearch;
+
+        return $this;
+    }
+
+    public function getUseDefaultSearch(): bool
+    {
+        return $this->evaluate($this->useDefaultSearch);
+    }
+
+    public function searchable(bool|array|string $condition = true, Closure $query = null, bool $isIndividual = false, bool $isGlobal = true): static
+    {
+        if (! $this->getUseDefaultSearch() && ! $query) {
+            parent::searchable(
+                condition: $condition,
+                query: function (Builder $query, string $search) {
+                    if (str_starts_with($search, '(')) {
+                        $phoneNumberUtil = PhoneNumberUtil::getInstance();
+                        $country         = $phoneNumberUtil->getCountryCodeForRegion($this->getRegion());
+                        $numbers         = '+' . $country . preg_replace('/[^0-9]/', '', $search);
+                    } else {
+                        $numbers = preg_replace('/[^0-9]/', '', $search);
+                    }
+
+                    if (filled($numbers)) {
+                        return $query->where('phone', 'like', '%' . $numbers . '%');
+                    } else {
+                        return $query;
+                    }
+                },
+                isIndividual: $isIndividual,
+                isGlobal: $isGlobal
+            );
+        } else {
+            parent::searchable(condition: $condition, query: $query, isIndividual: $isIndividual, isGlobal: $isGlobal);
+        }
+
+
+        return $this;
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -80,10 +127,6 @@ class PhoneNumberColumn extends TextColumn
                 region: $column->getRegion()
             );
         });
-
-        //        $this->searchQuery = static function ($searh, $query, $searchQuery) {
-        //            $foo = 1;
-        //        };
 
         if ($this->getDial()) {
             $this->url(fn (string $state) => PhoneHelper::formatPhoneNumber(

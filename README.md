@@ -144,6 +144,42 @@ FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
     ->dial(),
 ```
 
+### Searching
+
+With phone numbers normalized to E164, searching for formatted numbers wouldn't usually work out-of-box.  For example
+searching for 555-1212 wouldn't find the number +12345551212.  Likewise searching for (234) won't find it.
+
+To overcome this, we override the default behavior of searchable().  First we check to see if the first character the user
+typed is an open paren, '('.  If so, we assume they are looking for an area code.  So we strip any parens, get the country
+dial code for the currently configured region, and prepend that to the search string.  Then we strip all other
+non-numeric characters from the string.  So a search for '(2' with a region of 'US' would get converted to +12.
+Or '(234) 5' would be '+12345'.  If no () are used, we don't prepend
+the country code, and simply strip non-numeric characters.  So 555-1212 becomes 5551212.
+
+If you do not wish to use this behavior (for example if you are not using E164 for your database format, although we
+**strongly** recommend that you do) you can add the useDefaultSearch() method, which will bypass the search query modification.
+Also, if you specify your own $query in a searchable() method, this will bypass our modification.
+
+```php
+use Cheesegrits\FilamentPhoneNumbers;
+use Illuminate\Database\Query\Builder;
+
+// uses modified search query described above
+FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
+    ->searchable(),
+
+// bypasses query modification to use standard Filament query
+FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
+    ->useDefaultSearch()
+    ->searchable(),
+
+// uses your own query, bypassing custom query
+FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
+    ->searchable(query: function (Builder $query, string $search) { 
+        // your query here
+    }),
+```
+
 ## Artisan Command
 
 We provide an Artisan command for normalizing phone numbers you have already collected in your database table(s).

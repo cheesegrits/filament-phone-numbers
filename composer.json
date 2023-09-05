@@ -33,12 +33,14 @@
         "orchestra/testbench": "^8.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0"
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "pestphp/pest-plugin-livewire": "^2.1"
     },
     "autoload": {
         "psr-4": {
             "Cheesegrits\\FilamentPhoneNumbers\\": "src/",
-            "Cheesegrits\\FilamentPhoneNumbers\\Database\\Factories\\": "database/factories/"
+            "Cheesegrits\\FilamentPhoneNumbers\\Tests\\": "tests/src",
+            "Cheesegrits\\FilamentPhoneNumbers\\Tests\\Database\\Factories\\": "tests/database/factories"
         }
     },
     "autoload-dev": {

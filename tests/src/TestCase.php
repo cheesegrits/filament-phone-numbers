@@ -1,9 +1,10 @@
 <?php
 
-namespace Cheesegrits\FilamentPhoneNumbers\Tests;
+namespace Cheesegrits\FilamentPhoneNumbers\Tests\src;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
+use Cheesegrits\FilamentPhoneNumbers\FilamentPhoneNumbersServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
@@ -18,7 +19,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Cheesegrits\FilamentPhoneNumbers\FilamentPhoneNumbersServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -43,8 +43,8 @@ class TestCase extends Orchestra
             InfolistsServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationsServiceProvider::class,
-            SpatieLaravelSettingsPluginServiceProvider::class,
-            SpatieLaravelTranslatablePluginServiceProvider::class,
+//            SpatieLaravelSettingsPluginServiceProvider::class,
+//            SpatieLaravelTranslatablePluginServiceProvider::class,
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
@@ -52,13 +52,17 @@ class TestCase extends Orchestra
         ];
     }
 
+    protected function defineDatabaseMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_filament-phone-numbers_table.php.stub';
-        $migration->up();
-        */
+        $app['config']->set('view.paths', array_merge(
+            $app['config']->get('view.paths'),
+            [__DIR__ . '/../resources/views']
+        ));
     }
 }

@@ -15,6 +15,10 @@ regional formats by ISO country code.
 Think of phone numbers like dates.  Regardless of the format you display and input them, you always want
 them stored in a standard format.
 
+NOTE - if you would rather handle normalizing by casting attributes in your models, and don't need the additional
+features like normalization of existing data,  improved searching and validation this plugin provides, you may prefer to use the
+excellent [Laravel-Phone package](https://github.com/Propaganistas/Laravel-Phone).
+
 ## Installation
 
 You can install the package via composer:
@@ -52,10 +56,10 @@ FILAMENT_PHONE_NUMBERS_ISO_COUNTRY - the standard [two letter (alpha-2) ISO coun
 
 FILAMENT_PHONE_NUMBERS_DATABAASE_FORMAT, FILAMENT_PHONE_NUMBERS_DATABAASE_FORMAT - one of the following integers:
 
-0 - E164
-1 - International
-2 - National
-3 - RFC3966
+* 0 - E164
+* 1 - International
+* 2 - National
+* 3 - RFC3966
 
 We **strongly** recommend leaving the database format as E164.
 
@@ -92,7 +96,7 @@ FilamentPhoneNumbers\Forms\Components\PhoneNumber::make('phone')
 To enforce a stricter validation, which uses published metadata to determine if a number is "possible",
 use the strict() method.
 
-Take care using this feature, as metadata may not be fully up to date.
+Take care using this feature, as metadata may not be fully up-to-date.
 
 ```php
 use Cheesegrits\FilamentPhoneNumbers;
@@ -147,7 +151,7 @@ FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
 ### Searching
 
 With phone numbers normalized to E164, searching for formatted numbers wouldn't usually work out-of-box.  For example
-searching for 555-1212 wouldn't find the number +12345551212.  Likewise searching for (234) won't find it.
+searching for 555-1212 wouldn't find the number +12345551212.  Likewise, searching for (234) won't find it.
 
 To overcome this, we override the default behavior of searchable().  First we check to see if the first character the user
 typed is an open paren, '('.  If so, we assume they are looking for an area code.  So we strip any parens, get the country
@@ -193,10 +197,10 @@ This will run the command in test mode, whereby no actual changes will be made.
 You will be prompted for:
 
 Model (e.g. `Location` or `Maps/Dealership`)
-Phone attribute to normalize (eg. phone or phone_number)
-Attribute to normalize to (eg. normalized_phone, leave blank to modify in-place)
+Phone attribute to normalize (e.g. phone or phone_number)
+Attribute to normalize to (e.g. normalized_phone, leave blank to modify in-place)
 Phone Number Format (use E164 unless you have a very good reason not to)
-Two letter (alpha-2) ISO country code (eg. US or GB)
+Two letter (alpha-2) ISO country code (e.g. US or GB)
 
 The command will output feedback like this:
 
@@ -239,6 +243,8 @@ php artisan filament-phone-numbers::normalize --commit --delete-invalid --model=
 
 ## Testing
 
+Clone the repo and run ...
+
 ```bash
 composer test
 ```
@@ -259,6 +265,10 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 - [Hugh Messenger](https://github.com/cheesegrits)
 - [All Contributors](../../contributors)
+
+This plugin also uses the [Brick\PhoneNumber](https://github.com/brick/phonenumber) package by Benjamin Morel, which itself
+iss a wrapper around the [giggsey/libphonenumber-for-php](https://github.com/giggsey/libphonenumber-for-php) package,
+which in turn is based on Google's [google/libphonenumber](https://github.com/google/libphonenumber) package.  Turtles all the way down.
 
 ## License
 

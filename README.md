@@ -67,7 +67,7 @@ FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT, FILAMENT_PHONE_NUMBERS_DDISPLAY_FORMAT -
 
 We **strongly** recommend leaving the database format as E164.
 
-FILAMENT_PHONE_NUMBERS_ICON - any valid Heroicons v2 icon name
+FILAMENT_PHONE_NUMBERS_ICON - any valid Heroicons v2 icon name.
 
 ## PhoneNumber Field
 

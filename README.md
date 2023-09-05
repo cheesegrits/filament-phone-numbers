@@ -241,7 +241,7 @@ the following examples.
 php artisan filament-phone-numbers::normalize --commit --model=Contacts/Customer --field=phone --target=new_phone --format=e164 --region=US
 
 # --target is optional, if not given you should add the --in-place option (normalize in-place to same field name)
-## If the --delete-invalid option will 
+# If the --delete-invalid option is give, will set any invalid numbers to null 
 php artisan filament-phone-numbers::normalize --commit --delete-invalid --model=User --field=mobile_phone --in-place --format=e164 --region=US
 ```
 

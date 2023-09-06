@@ -5,6 +5,7 @@ use Cheesegrits\FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Cheesegrits\FilamentPhoneNumbers\Tests\Fixtures\BaseInfolist;
 use Cheesegrits\FilamentPhoneNumbers\Tests\Models\User;
+
 use function Pest\Livewire\livewire;
 
 it('can render infolist entry', function () {
@@ -14,7 +15,7 @@ it('can render infolist entry', function () {
     livewire(BaseInfolist::class, [
         'id' => $user->id,
     ])
-    ->assertSee($formattedPhone);
+        ->assertSee($formattedPhone);
 });
 
 it('can render infolist entry with dial', function () {

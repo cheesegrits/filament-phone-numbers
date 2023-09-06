@@ -14,8 +14,8 @@ use Livewire\Component;
 
 class BaseInfolist extends Component implements HasForms, HasInfolists
 {
-    use InteractsWithInfolists;
     use InteractsWithForms;
+    use InteractsWithInfolists;
 
     public User $user;
 

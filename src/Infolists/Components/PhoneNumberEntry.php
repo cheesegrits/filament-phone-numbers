@@ -10,13 +10,13 @@ use Filament\Infolists\Components;
 
 class PhoneNumberEntry extends Components\TextEntry
 {
-    protected int|Closure|null $displayFormat = null;
+    protected int | Closure | null $displayFormat = null;
 
-    protected string|Closure|null $region = null;
+    protected string | Closure | null $region = null;
 
-    protected bool|Closure $dial = false;
+    protected bool | Closure $dial = false;
 
-    public function displayFormat(int|PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
     {
         $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
 

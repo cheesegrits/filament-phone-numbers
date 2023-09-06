@@ -7,8 +7,8 @@
 
 
 
-This package provides a PhoneNumber field, PhoneNumberColumn and PhoneNumberEntry Infolist entry for formatting, masking
-and validating phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.
+This package provides a PhoneNumber field, PhoneNumberColumn and PhoneNumberEntry Infolist entry for normalizing, formatting,
+masking and validating phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.
 It also provides an Artisan command for normalizing any phone number data already captured in the database.
 
 It ensures that numbers persisted to the database are in a normalized format, typically

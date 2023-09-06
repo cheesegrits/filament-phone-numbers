@@ -7,9 +7,9 @@
 
 
 
-This package provides a PhoneNumber field and PhoneNumberColumn for formatting, masking and validating
-phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.  It also
-provides an Artisan command for normalizing any phone number data already captured in the database.
+This package provides a PhoneNumber field, PhoneNumberColumn and PhoneNumberEntry Infolist entry for formatting, masking
+and validating phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.
+It also provides an Artisan command for normalizing any phone number data already captured in the database.
 
 It ensures that numbers persisted to the database are in a normalized format, typically
 E164 (+12345551212), and displays them in National or International format.  It supports most of the
@@ -187,6 +187,30 @@ FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
     ->searchable(query: function (Builder $query, string $search) { 
         // your query here
     }),
+```
+
+## PhoneNumberEntry
+
+The basic usage of the PhoneNumberEntry Infolist field is as follows:
+
+```php
+use Cheesegrits\FilamentPhoneNumbers;
+
+FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry::make('phone'),
+```
+
+With no modification, this will use the global default for display format and region.
+
+You may override the format and region, and optionally specify the dial() method, which will render the number as a
+clickable 'tel' URI:
+
+```php
+use Cheesegrits\FilamentPhoneNumbers;
+
+FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry::make('phone')
+    ->displayFormat(FilamentPhoneNumbers\Enums\PhoneFormat::INTERNATIONAL)
+    ->region('GB')
+    ->dial(),
 ```
 
 ## Artisan Command

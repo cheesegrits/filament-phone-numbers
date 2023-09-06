@@ -8,7 +8,8 @@
 
 
 This package provides a PhoneNumber field and PhoneNumberColumn for formatting, masking and validating
-phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.
+phone numbers in the [Filament PHP](https://github.com/filamentphp/filament) application builder for Laravel.  It also
+provides an Artisan command for normalizing any phone number data already captured in the database.
 
 It ensures that numbers persisted to the database are in a normalized format, typically
 E164 (+12345551212), and displays them in National or International format.  It supports most of the

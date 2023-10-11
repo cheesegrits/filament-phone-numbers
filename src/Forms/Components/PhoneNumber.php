@@ -123,8 +123,6 @@ JS
             );
         });
 
-        //        $this->placeholder();
-
         $this->rules([
             function () {
                 return function (string $attribute, $value, Closure $fail) {
@@ -147,5 +145,7 @@ JS
         $this->type('tel');
 
         $this->prefixIcon(config('filament-phone-numbers.defaults.icon', 'heroicon-m-phone'));
+
+        $this->mask();
     }
 }

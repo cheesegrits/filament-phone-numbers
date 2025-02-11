@@ -13,7 +13,7 @@ class PhoneNumber extends Forms\Components\TextInput
 {
     protected PhoneNumberFormat | Closure | null $databaseFormat = null;
 
-    protected PhoneNumberFormat | null $displayFormat = null;
+    protected ?PhoneNumberFormat $displayFormat = null;
 
     protected string | Closure | null $region = null;
 
@@ -70,7 +70,7 @@ class PhoneNumber extends Forms\Components\TextInput
         return $this->evaluate($this->strict);
     }
 
-    public function mask(Closure | string | RawJs $mask = null): static
+    public function mask(Closure | string | RawJs | null $mask = null): static
     {
         if ($mask) {
             return parent::mask($mask);

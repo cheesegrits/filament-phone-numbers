@@ -2,6 +2,4 @@
 
 namespace Cheesegrits\FilamentPhoneNumbers;
 
-class FilamentPhoneNumbers
-{
-}
+class FilamentPhoneNumbers {}

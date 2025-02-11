@@ -38,9 +38,9 @@ class BaseTable extends Component implements HasForms, Tables\Contracts\HasTable
     protected function getTableBulkActions(): array
     {
         return [
-            //BulkActionGroup::make([
+            // BulkActionGroup::make([
             //			Tables\Actions\DeleteBulkAction::make(),
-            //]),
+            // ]),
         ];
     }
 

@@ -58,9 +58,7 @@ class FilamentPhoneNumbersServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void
-    {
-    }
+    public function packageRegistered(): void {}
 
     public function packageBooted(): void
     {
@@ -88,7 +86,7 @@ class FilamentPhoneNumbersServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsFilamentPhoneNumbers());
+        Testable::mixin(new TestsFilamentPhoneNumbers);
     }
 
     protected function getAssetPackageName(): ?string

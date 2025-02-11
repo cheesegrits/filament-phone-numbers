@@ -3,7 +3,6 @@
 namespace Cheesegrits\FilamentPhoneNumbers\Columns;
 
 use Brick\PhoneNumber\PhoneNumberFormat;
-use Cheesegrits\FilamentPhoneNumbers\Enums\PhoneFormat;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Closure;
 use Filament\Tables\Columns\Concerns\CanBeSearchable;
@@ -15,7 +14,7 @@ class PhoneNumberColumn extends TextColumn
 {
     use CanBeSearchable;
 
-    protected int | Closure | null $displayFormat = null;
+    protected PhoneNumberFormat | null $displayFormat = null;
 
     protected bool | Closure $dial = false;
 
@@ -23,14 +22,14 @@ class PhoneNumberColumn extends TextColumn
 
     protected bool | Closure $useDefaultSearch = false;
 
-    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function displayFormat(PhoneNumberFormat $format = PhoneNumberFormat::NATIONAL): static
     {
-        $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
+        $this->displayFormat = $format;
 
         return $this;
     }
 
-    public function getDisplayFormat(): int
+    public function getDisplayFormat(): PhoneNumberFormat
     {
         return $this->displayFormat ? $this->evaluate($this->displayFormat)
             : config('filament-phone-numbers.defaults.display_format');
@@ -56,7 +55,7 @@ class PhoneNumberColumn extends TextColumn
         $this->url(fn (?string $state) => PhoneHelper::formatPhoneNumber(
             number: $state,
             strict: false,
-            format: PhoneFormat::RFC3966->value,
+            format: PhoneNumberFormat::RFC3966,
             region: $this->getRegion()
         ));
 

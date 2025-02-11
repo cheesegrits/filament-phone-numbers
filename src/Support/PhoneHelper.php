@@ -8,7 +8,7 @@ use Brick\PhoneNumber\PhoneNumberParseException;
 
 class PhoneHelper
 {
-    public static function normalizePhoneNumber(?string $number, bool $strict = false, int $format = PhoneNumberFormat::E164, string $region = 'US'): ?string
+    public static function normalizePhoneNumber(?string $number, bool $strict = false, PhoneNumberFormat $format = PhoneNumberFormat::E164, string $region = 'US'): ?string
     {
         $phone = null;
 
@@ -43,7 +43,7 @@ class PhoneHelper
         }
     }
 
-    public static function formatPhoneNumber(?string $number, bool $strict = false, int $format = PhoneNumberFormat::NATIONAL, string $region = 'US'): ?string
+    public static function formatPhoneNumber(?string $number, bool $strict = false, PhoneNumberFormat $format = PhoneNumberFormat::NATIONAL, string $region = 'US'): ?string
     {
         if (! filled($number)) {
             return null;

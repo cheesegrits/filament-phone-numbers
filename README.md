@@ -42,6 +42,8 @@ php artisan vendor:publish --tag="filament-phone-numbers-config"
 This is the contents of the published config file:
 
 ```php
+use Brick\PhoneNumber\PhoneNumberFormat;
+
 return [
     'defaults' => [
         'region' => env('FILAMENT_PHONE_NUMBERS_ISO_COUNTRY', 'US'),
@@ -59,7 +61,7 @@ Rather than publishing the config, we recommend using the environment variables.
 
 FILAMENT_PHONE_NUMBERS_ISO_COUNTRY - the standard [two letter (alpha-2) ISO country code](https://www.iso.org/obp/ui/#search).
 
-FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT, FILAMENT_PHONE_NUMBERS_DDISPLAY_FORMAT - one of the following integers:
+FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT, FILAMENT_PHONE_NUMBERS_DISPLAY_FORMAT - one of the following integers:
 
 * 0 - E164
 * 1 - International
@@ -69,6 +71,11 @@ FILAMENT_PHONE_NUMBERS_DATABASE_FORMAT, FILAMENT_PHONE_NUMBERS_DDISPLAY_FORMAT -
 We **strongly** recommend leaving the database format as E164.
 
 FILAMENT_PHONE_NUMBERS_ICON - any valid Heroicons v2 icon name.
+
+## Breaking Changes
+
+As of v1.0.4 we removed the internal PhoneFormat enum type, and now use the Brick PhoneNumberFormat type directly.  This
+will only effect code which uses one of the databaseFormat() or displayFormat() modifiers.
 
 ## PhoneNumber Field
 
@@ -92,10 +99,11 @@ To override the display or database formats, use one of the available PhoneForma
 
 ```php
 use Cheesegrits\FilamentPhoneNumbers;
+use Brick\PhoneNumber\PhoneNumberFormat;
 
 FilamentPhoneNumbers\Forms\Components\PhoneNumber::make('phone')
-    ->displayFormat(FilamentPhoneNumbers\Enums\PhoneFormat::INTERNATIONAL)
-    ->databaseFormat(FilamentPhoneNumbers\Enums\PhoneFormat::INTERNATIONAL)
+    ->displayFormat(PhoneNumberFormat::INTERNATIONAL)
+    ->databaseFormat(PhoneNumberFormat::INTERNATIONAL)
 ```
 
 To enforce a stricter validation, which uses published metadata to determine if a number is "possible",
@@ -146,9 +154,10 @@ clickable 'tel' URI:
 
 ```php
 use Cheesegrits\FilamentPhoneNumbers;
+use Brick\PhoneNumber\PhoneNumberFormat;
 
 FilamentPhoneNumbers\Columns\PhoneNumberColumn::make('phone')
-    ->displayFormat(FilamentPhoneNumbers\Enums\PhoneFormat::NATIONAL)
+    ->displayFormat(PhoneNumberFormat::NATIONAL)
     ->region('CA')
     ->dial(),
 ```
@@ -206,9 +215,10 @@ clickable 'tel' URI:
 
 ```php
 use Cheesegrits\FilamentPhoneNumbers;
+use Brick\PhoneNumber\PhoneNumberFormat;
 
 FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry::make('phone')
-    ->displayFormat(FilamentPhoneNumbers\Enums\PhoneFormat::INTERNATIONAL)
+    ->displayFormat(PhoneNumberFormat::INTERNATIONAL)
     ->region('GB')
     ->dial(),
 ```

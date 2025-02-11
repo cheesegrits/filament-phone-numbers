@@ -3,7 +3,6 @@
 namespace Cheesegrits\FilamentPhoneNumbers\Forms\Components;
 
 use Brick\PhoneNumber\PhoneNumberFormat;
-use Cheesegrits\FilamentPhoneNumbers\Enums\PhoneFormat;
 use Cheesegrits\FilamentPhoneNumbers\Models\Country;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Closure;
@@ -12,35 +11,35 @@ use Filament\Support\RawJs;
 
 class PhoneNumber extends Forms\Components\TextInput
 {
-    protected int | Closure | null $databaseFormat = null;
+    protected PhoneNumberFormat | Closure | null $databaseFormat = null;
 
-    protected int | Closure | null $displayFormat = null;
+    protected PhoneNumberFormat | null $displayFormat = null;
 
     protected string | Closure | null $region = null;
 
     protected bool | Closure $strict = false;
 
-    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function displayFormat(PhoneNumberFormat $format = PhoneNumberFormat::NATIONAL): static
     {
-        $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
+        $this->displayFormat = $format;
 
         return $this;
     }
 
-    public function getDisplayFormat(): int
+    public function getDisplayFormat(): PhoneNumberFormat
     {
         return $this->displayFormat ? $this->evaluate($this->displayFormat)
             : config('filament-phone-numbers.defaults.display_format');
     }
 
-    public function databaseFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function databaseFormat(PhoneNumberFormat $format = PhoneNumberFormat::NATIONAL): static
     {
-        $this->databaseFormat = $format instanceof PhoneFormat ? $format->value : $format;
+        $this->databaseFormat = $format;
 
         return $this;
     }
 
-    public function getDatabaseFormat(): int
+    public function getDatabaseFormat(): PhoneNumberFormat
     {
         return $this->databaseFormat ? $this->evaluate($this->databaseFormat)
             : config('filament-phone-numbers.defaults.database_format');

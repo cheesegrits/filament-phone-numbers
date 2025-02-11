@@ -3,27 +3,26 @@
 namespace Cheesegrits\FilamentPhoneNumbers\Infolists\Components;
 
 use Brick\PhoneNumber\PhoneNumberFormat;
-use Cheesegrits\FilamentPhoneNumbers\Enums\PhoneFormat;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Closure;
 use Filament\Infolists\Components;
 
 class PhoneNumberEntry extends Components\TextEntry
 {
-    protected int | Closure | null $displayFormat = null;
+    protected PhoneNumberFormat | Closure | null $displayFormat = null;
 
     protected string | Closure | null $region = null;
 
     protected bool | Closure $dial = false;
 
-    public function displayFormat(int | PhoneFormat $format = PhoneNumberFormat::NATIONAL): static
+    public function displayFormat(PhoneNumberFormat $format = PhoneNumberFormat::NATIONAL): static
     {
-        $this->displayFormat = $format instanceof PhoneFormat ? $format->value : $format;
+        $this->displayFormat = $format;
 
         return $this;
     }
 
-    public function getDisplayFormat(): int
+    public function getDisplayFormat(): PhoneNumberFormat
     {
         return $this->displayFormat ? $this->evaluate($this->displayFormat)
             : config('filament-phone-numbers.defaults.display_format');
@@ -49,7 +48,7 @@ class PhoneNumberEntry extends Components\TextEntry
         $this->url(fn (?string $state) => PhoneHelper::formatPhoneNumber(
             number: $state,
             strict: false,
-            format: PhoneFormat::RFC3966->value,
+            format: PhoneNumberFormat::RFC3966,
             region: $this->getRegion()
         ));
 

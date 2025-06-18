@@ -94,7 +94,7 @@ class PhoneNumberColumn extends TextColumn
                     }
 
                     if (filled($numbers)) {
-                        return $query->where('phone', 'like', '%' . $numbers . '%');
+                        return $query->where($this->getName(), 'like', '%' . $numbers . '%');
                     } else {
                         return $query;
                     }

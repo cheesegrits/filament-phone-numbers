@@ -25,7 +25,7 @@ class PhoneHelper
             }
         }
 
-        return $phone?->format(PhoneNumberFormat::E164);
+        return $phone?->format($format);
     }
 
     public static function isValidPhoneNumber(?string $number, $strict = false, bool $allowEmpty = true, string $region = 'US'): bool

@@ -91,6 +91,8 @@ class PhoneNumberColumn extends TextColumn
                         $numbers = '+' . $country . preg_replace('/[^0-9]/', '', $search);
                     } else {
                         $numbers = preg_replace('/[^0-9]/', '', $search);
+                        // Remove the leading zero for domestic numbers (trunk code '0') for country-code-less search
+                        $numbers = preg_replace('/^0/', '', $numbers);
                     }
 
                     if (filled($numbers)) {

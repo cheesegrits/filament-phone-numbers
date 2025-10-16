@@ -85,15 +85,9 @@ class PhoneNumberColumn extends TextColumn
             parent::searchable(
                 condition: $condition,
                 query: function (Builder $query, string $search) {
-                    if (str_starts_with($search, '(')) {
-                        $phoneNumberUtil = PhoneNumberUtil::getInstance();
-                        $country = $phoneNumberUtil->getCountryCodeForRegion($this->getRegion());
-                        $numbers = '+' . $country . preg_replace('/[^0-9]/', '', $search);
-                    } else {
-                        $numbers = preg_replace('/[^0-9]/', '', $search);
-                        // Remove the leading zero for domestic numbers (trunk code '0') for country-code-less search
-                        $numbers = preg_replace('/^0/', '', $numbers);
-                    }
+                    $numbers = preg_replace('/[^0-9]/', '', $search);
+                    // Remove the leading zero for domestic numbers (trunk code '0') for country-code-less search
+                    $numbers = preg_replace('/^0/', '', $numbers);
 
                     if (filled($numbers)) {
                         return $query->where($this->getName(), 'like', '%' . $numbers . '%');

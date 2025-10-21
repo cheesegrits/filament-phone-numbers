@@ -35,7 +35,7 @@ class PhoneNumberColumn extends TextColumn
             : config('filament-phone-numbers.defaults.display_format');
     }
 
-    public function region(string $region = 'US'): static
+    public function region(string|Closure $region = 'US'): static
     {
         $this->region = $region;
 

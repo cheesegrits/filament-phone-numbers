@@ -45,9 +45,13 @@ class PhoneNumber extends Forms\Components\TextInput
             : config('filament-phone-numbers.defaults.database_format');
     }
 
-    public function region(string $region = 'US'): static
+    public function region(string | Closure $region = 'US'): static
     {
-        $this->region = strtoupper($region);
+        if (! $region instanceof Closure) {
+            $this->region = strtoupper($region);
+        } else {
+            $this->region = $region;
+        }
 
         return $this;
     }
@@ -58,7 +62,7 @@ class PhoneNumber extends Forms\Components\TextInput
             : config('filament-phone-numbers.defaults.region');
     }
 
-    public function strict(bool $strict = true): static
+    public function strict(bool | Closure $strict = true): static
     {
         $this->strict = $strict;
 

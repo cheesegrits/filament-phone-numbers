@@ -24,13 +24,12 @@ excellent [Laravel-Phone package](https://github.com/Propaganistas/Laravel-Phone
 
 ## Installation
 
-**NOTE** that this package is currently only compatible with Filament v3, and there are currently no plans to release a v2
-compatible version.
+**NOTE** that this is the Filament v4 version of the plugin.  If you are using Filament v3, please use the [v3 branch](https://github.com/cheesegrits/filament-phone-numbers/tree/v3).
 
 You can install the package via composer:
 
 ```bash
-composer require cheesegrits/filament-phone-numbers
+composer require cheesegrits/filament-phone-numbers:"^4.0"
 ```
 
 You can publish the config file with:

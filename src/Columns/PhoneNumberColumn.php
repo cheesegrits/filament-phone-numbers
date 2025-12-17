@@ -79,7 +79,7 @@ class PhoneNumberColumn extends TextColumn
         return $this->evaluate($this->useDefaultSearch);
     }
 
-    public function searchable(bool | array | string $condition = true, ?Closure $query = null, bool $isIndividual = false, bool $isGlobal = true): static
+    public function searchable(Closure | bool | array | string $condition = true, ?Closure $query = null, bool $isIndividual = false, bool $isGlobal = true): static
     {
         if (! $this->getUseDefaultSearch() && ! $query) {
             parent::searchable(

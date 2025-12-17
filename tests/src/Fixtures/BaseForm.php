@@ -5,14 +5,18 @@ namespace Cheesegrits\FilamentPhoneNumbers\Tests\Fixtures;
 use Cheesegrits\FilamentPhoneNumbers\Tests\Models\User;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class BaseForm extends Component implements HasForms
+class BaseForm extends Component implements HasSchemas
 {
-    use InteractsWithForms;
+    use InteractsWithSchemas;
 
     public User $user;
+    
+    public $record;
 
     public $phone;
 

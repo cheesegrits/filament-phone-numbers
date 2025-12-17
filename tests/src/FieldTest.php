@@ -4,8 +4,7 @@ use Cheesegrits\FilamentPhoneNumbers\Forms\Components\PhoneNumber;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Cheesegrits\FilamentPhoneNumbers\Tests\Fixtures\BaseForm;
 use Cheesegrits\FilamentPhoneNumbers\Tests\Models\User;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 
 use function Pest\Livewire\livewire;
 
@@ -24,7 +23,7 @@ it('can render a US format phone number', function () {
         ->assertFormFieldExists('phone', function (PhoneNumber $field): bool {
             return $field->isEnabled();
         })
-        ->assertFormSet([
+        ->assertSchemaStateSet([
             'phone' => $formattedPhone,
         ]);
 });
@@ -44,7 +43,7 @@ it('can render a US format phone number with correct mask', function () {
         ->assertFormFieldExists('phone', function (PhoneNumber $field): bool {
             return $field->getMask() === '(999) 999-9999';
         })
-        ->assertFormSet([
+        ->assertSchemaStateSet([
             'phone' => $formattedPhone,
         ]);
 });
@@ -86,10 +85,10 @@ it('can save a US format phone number to e164 format', function () {
 
 class TestForm extends BaseForm
 {
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 PhoneNumber::make('phone'),
             ]);
     }
@@ -97,10 +96,10 @@ class TestForm extends BaseForm
 
 class TestFormWithMask extends BaseForm
 {
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //                TextInput::make('name'),
                 //
                 //                TextInput::make('email'),

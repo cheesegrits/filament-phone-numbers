@@ -3,17 +3,32 @@
 namespace Cheesegrits\FilamentPhoneNumbers\Tests\Fixtures;
 
 use Cheesegrits\FilamentPhoneNumbers\Tests\Models\User;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Tables;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class BaseTable extends Component implements HasForms, Tables\Contracts\HasTable
+class BaseTable extends Component implements HasActions, HasSchemas, HasTable
 {
-    use InteractsWithForms;
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithSchemas;
+    use InteractsWithTable;
+    use InteractsWithActions;
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->columns($this->getTableColumns())
+            ->filters($this->getTableFilters())
+            ->headerActions($this->getTableHeaderActions())
+            ->recordActions($this->getTableActions())
+            ->toolbarActions($this->getTableBulkActions());
+    }
 
     protected function getTableFilters(): array
     {

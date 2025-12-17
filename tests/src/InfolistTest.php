@@ -12,7 +12,7 @@ it('can render infolist entry', function () {
     $user = User::factory()->e164()->create();
     $formattedPhone = PhoneHelper::formatPhoneNumber($user->phone);
 
-    livewire(BaseInfolist::class, [
+    livewire(TestInfolist::class, [
         'id' => $user->id,
     ])
         ->assertSee($formattedPhone);
@@ -32,7 +32,7 @@ it('can render infolist entry with dial', function () {
 
 class TestInfolist extends BaseInfolist
 {
-    public function getInfolistSchema(): array
+    public function getInfolistComponents(): array
     {
         return [
             PhoneNumberEntry::make('phone'),
@@ -42,7 +42,7 @@ class TestInfolist extends BaseInfolist
 
 class TestInfolistWithDial extends BaseInfolist
 {
-    public function getInfolistSchema(): array
+    public function getInfolistComponents(): array
     {
         return [
             PhoneNumberEntry::make('phone')

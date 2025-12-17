@@ -13,7 +13,7 @@ use Livewire\Component;
 class BaseInfolist extends Component implements HasSchemas
 {
     use InteractsWithSchemas;
-    
+
     public User $user;
 
     public function mount($id): void

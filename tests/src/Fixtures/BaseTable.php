@@ -16,9 +16,9 @@ use Livewire\Component;
 
 class BaseTable extends Component implements HasActions, HasSchemas, HasTable
 {
+    use InteractsWithActions;
     use InteractsWithSchemas;
     use InteractsWithTable;
-    use InteractsWithActions;
 
     public function table(Table $table): Table
     {

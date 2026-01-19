@@ -3,8 +3,6 @@
 namespace Cheesegrits\FilamentPhoneNumbers\Tests\Fixtures;
 
 use Cheesegrits\FilamentPhoneNumbers\Tests\Models\User;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\View\View;
@@ -15,7 +13,7 @@ class BaseForm extends Component implements HasSchemas
     use InteractsWithSchemas;
 
     public User $user;
-    
+
     public $record;
 
     public $phone;

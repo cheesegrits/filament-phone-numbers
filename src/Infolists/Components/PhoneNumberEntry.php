@@ -6,6 +6,7 @@ use Brick\PhoneNumber\PhoneNumberFormat;
 use Cheesegrits\FilamentPhoneNumbers\Support\PhoneHelper;
 use Closure;
 use Filament\Infolists\Components;
+use Illuminate\Database\Eloquent\Model;
 
 class PhoneNumberEntry extends Components\TextEntry
 {
@@ -60,7 +61,12 @@ class PhoneNumberEntry extends Components\TextEntry
         return $this->evaluate($this->dial);
     }
 
-    public function formatState(mixed $state): mixed
+    /**
+     * Filament 5.10 / 4.15 added the optional $relatedRecord parameter to
+     * TextEntry::formatState(); declaring it here keeps this override
+     * compatible with those and with the earlier signatures.
+     */
+    public function formatState(mixed $state, ?Model $relatedRecord = null): mixed
     {
         $state = PhoneHelper::formatPhoneNumber(
             number: $state,
